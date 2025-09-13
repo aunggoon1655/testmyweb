@@ -45,39 +45,43 @@
   </div>
 
 
-      <div id="addModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>เพิ่มรายการใหม่</h2>
-            <form id="addDataForm">
-                <div class="form-group">
-                    <label for="idNumber">ID Number:</label>
-                    <input type="text" id="idNumber" name="idNumber" required>
-                </div>
-                <div class="form-group">
-                    <label for="department">แผนก:</label>
-                    <select id="department" name="department" required>
-                        <option value="tr">tr</option>
-                        <option value="tvb">tvb</option>
-                        <option value="tv3">tv3</option>
-                        <option value="vg">vg</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="createDate">Create Date:</label>
-                    <input type="date" id="createDate" name="createDate" required>
-                </div>
-                <div class="form-group">
-                    <label for="status">สถานะ:</label>
-                    <select id="status" name="status" required>
-                        <option value="ยืม">ยืม</option>
-                        <option value="คืน">คืน</option>
-                    </select>
-                </div>
-                <button type="submit" id="saveBtn">บันทึก</button>
-            </form>
-        </div>
+<div id="addModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>เพิ่มรายการใหม่</h2>
+        <form id="addDataForm">
+            <div class="form-group">
+                <label for="idNumber">ID Number:</label>
+                <input type="text" id="idNumber" name="idNumber" required>
+            </div>
+            <div class="form-group">
+                <label for="name">ชื่อ:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="department">แผนก:</label>
+                <select id="department" name="department" required>
+                    <option value="tr">tr</option>
+                    <option value="tvb">tvb</option>
+                    <option value="tv3">tv3</option>
+                    <option value="vg">vg</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="createDate">Create Date:</label>
+                <input type="date" id="createDate" name="createDate" required>
+            </div>
+            <div class="form-group">
+                <label for="status">สถานะ:</label>
+                <select id="status" name="status" required>
+                    <option value="ยืม">ยืม</option>
+                    <option value="คืน">คืน</option>
+                </select>
+            </div>
+            <button type="submit" id="saveBtn">บันทึก</button>
+        </form>
     </div>
+</div>
 
 <script>
     const tableBody = document.getElementById("tableBody");
