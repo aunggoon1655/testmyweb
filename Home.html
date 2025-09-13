@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UI ตัวอย่าง — ไอคอนค้นหา + 3 กรอบ</title>
+  <link rel="stylesheet" href="css/Home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+  <header class="topbar" aria-label="Topbar">
+    <div class="search-wrap" role="search" title="ค้นหา">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.8"/>
+      </svg>
+      <input class="search-input" type="search" placeholder="ค้นหา..." aria-label="ค้นหา" />
+    </div>
+  </header>
+
+  <main class="stage">
+    <!-- หน้าแรก: cards -->
+    <div class="cards">
+      <div class="card c1" data-key="borrow"><div class="label">ยืม</div></div>
+      <div class="card c2" data-key="new"><div class="label">Stock เครื่องใหม่</div></div>
+      <div class="card c3" data-key="old"><div class="label">Stock เก่า</div></div>
+    </div>
+
+    <!-- หน้าแสดงรายละเอียด -->
+    <div class="details">
+      <div class="details-header">
+        <div class="back-btn" id="backBtn">
+  <i class="fa fa-chevron-left" aria-hidden="true"></i>
+</div>
+        <span id="detailsTitle"></span>
+      </div>
+      <div class="sub-buttons" id="subButtons"></div>
+    </div>
+  </main>
+
+  <script>
+    const cards = document.querySelector('.cards');
+    const details = document.querySelector('.details');
+    const detailsTitle = document.getElementById('detailsTitle');
+    const subButtons = document.getElementById('subButtons');
+    const backBtn = document.getElementById('backBtn');
+
+    // กำหนดหัวข้อย่อยของแต่ละเมนู
+const data = {
+    borrow: {
+      title: "ยืม",
+      subs: [
+        { label: "User ยืม", url: "menu1.1.html" },
+        { label: "User คืน", url: "menu2.html" },
+        { label: "Stock กลาง", url: "menu3.html" }
+      ]
+    },
+    new: {
+      title: "Stock เครื่องใหม่",
+      subs: [
+        { label: "PC", url: "pc.html" },
+        { label: "Mac", url: "mac.html" },
+        { label: "Asset", url: "asset.html" },
+        { label: "Monitor", url: "monitor.html" }
+      ]
+    },
+    old: {
+      title: "Stock เก่า",
+      subs: [
+        { label: "PC", url: "old-pc.html" },
+        { label: "Mac", url: "old-mac.html" },
+        { label: "Asset", url: "old-asset.html" },
+        { label: "Monitor", url: "old-monitor.html" }
+      ]
+    }
+  };
+
+    // เมื่อคลิกการ์ด
+    document.querySelectorAll('.card').forEach(card=>{
+      card.addEventListener('click',()=>{
+        const key = card.dataset.key;
+        const info = data[key];
+        if(!info) return;
+
+        // ซ่อนการ์ด แสดง details
+        cards.style.display = "none";
+        details.style.display = "flex";
+
+        // ตั้งค่า title
+        detailsTitle.textContent = info.title;
+
+        // ล้างปุ่มเก่า
+        subButtons.innerHTML = "";
+        // สร้างปุ่มหัวข้อย่อย
+info.subs.forEach(sub => {
+  const btn = document.createElement("button");
+  btn.textContent = sub.label;
+  btn.addEventListener('click', () => {
+    window.location.href = sub.url + "?menu=" + key; // 👈 ส่ง param ไปด้วย
+  });
+  subButtons.appendChild(btn);
+});
+
+      });
+    });
+
+    // ปุ่มย้อนกลับ
+    backBtn.addEventListener('click',()=>{
+      details.style.display = "none";
+      cards.style.display = "flex";
+    });
+  </script>
+</body>
+</html>
