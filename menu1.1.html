@@ -2,207 +2,216 @@
 <html lang="th">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>รายการ</title>
-  <link rel="stylesheet" href="css/menu1.1.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายการ</title>
+    <link rel="stylesheet" href="css/menu1.1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
 
-  <div class="header">
-    <h2>User ยืม </h2>
-    <h3>ver0.1</h3>
-    <button class="back-btn" onclick="history.back()">
-      <i class="fa fa-chevron-left"></i> ย้อนกลับ
-    </button>
-  </div>
-
-  <div class="table-container">
-    <table id="dataTable">
-      <thead>
-        <tr>
-          <th>Filter</th>
-          <th>ID Number</th>
-          <th>ชื่อ</th>
-          <th>แผนก</th>
-          <th>Create Date</th>
-          <th>Status</th>
-          <th>
-            <div class="action-header">
-              <span>Actions</span>
-              <button class="add-btn" id="addBtn">+ เพิ่มรายการ</button>
-            </div>
-          </th>
-
-        </tr>
-      </thead>
-      <tbody id="tableBody">
-        <!-- แถวข้อมูลจะถูกสร้างด้วย JS -->
-      </tbody>
-    </table>
-  </div>
-
-
-<div id="addModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <h2>เพิ่มรายการใหม่</h2>
-        <form id="addDataForm">
-            <div class="form-group">
-                <label for="idNumber">ID Number:</label>
-                <input type="text" id="idNumber" name="idNumber" required>
-            </div>
-            <div class="form-group">
-                <label for="name">ชื่อ:</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="department">แผนก:</label>
-                <select id="department" name="department" required>
-                    <option value="tr">tr</option>
-                    <option value="tvb">tvb</option>
-                    <option value="tv3">tv3</option>
-                    <option value="vg">vg</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="createDate">Create Date:</label>
-                <input type="date" id="createDate" name="createDate" required>
-            </div>
-            <div class="form-group">
-                <label for="status">สถานะ:</label>
-                <select id="status" name="status" required>
-                    <option value="ยืม">ยืม</option>
-                    <option value="คืน">คืน</option>
-                </select>
-            </div>
-            <button type="submit" id="saveBtn">บันทึก</button>
-        </form>
+    <div class="header">
+        <h2>User ยืม </h2>
+        <h3>ver0.1</h3>
+        <button class="back-btn" onclick="history.back()">
+            <i class="fa fa-chevron-left"></i> ย้อนกลับ
+        </button>
     </div>
-</div>
 
-<script>
-    const tableBody = document.getElementById("tableBody");
-    const addBtn = document.getElementById("addBtn");
-    const modal = document.getElementById("addModal");
-    const closeBtn = document.querySelector(".close-btn");
-    const addDataForm = document.getElementById("addDataForm");
+    <div class="table-container">
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>Filter</th>
+                    <th>ID Number</th>
+                    <th>ชื่อ</th>
+                    <th>แผนก</th>
+                    <th>Create Date</th>
+                    <th>Status</th>
+                    <th>
+                        <div class="action-header">
+                            <span>Actions</span>
+                            <button class="add-btn" id="addBtn">+ เพิ่มรายการ</button>
+                        </div>
+                    </th>
 
-    // URL สำหรับดึงข้อมูลจาก Google Sheet
-    const sheetUrl = "https://script.google.com/macros/s/AKfycbxmf08P8298ZZXNkXj0fRDzuW7-XcHZgUEDOPRvpYur_Tyefgq235W7PgtGt4vHrL0V1A/exec";
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                </tbody>
+        </table>
+    </div>
 
-    // URL สำหรับส่งข้อมูลไปยัง Google Sheet (ต้องสร้างใหม่)
-    const addDataUrl = "https://script.google.com/macros/s/AKfycbw7ncgmsQneUmR4bV4ggeQ8iP9VA5Q3W3u7xdb0pSZW6GEPVnPHl3TKQffnzpGdkmDXyw/exec";
 
-    // ฟังก์ชันสำหรับดึงข้อมูลและแสดงผลในตาราง (เหมือนเดิม)
-    async function fetchDataAndRenderTable() {
-        // ... (โค้ด fetchDataAndRenderTable เดิม) ...
-        try {
-            const response = await fetch(sheetUrl);
-            const data = await response.json();
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>เพิ่มรายการใหม่</h2>
+            <form id="addDataForm">
+                <div class="form-group">
+                    <label for="idNumber">ID Number:</label>
+                    <input type="text" id="idNumber" name="idNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">ชื่อ:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="department">แผนก:</label>
+                    <select id="department" name="department" required>
+                        <option value="tr">tr</option>
+                        <option value="tvb">tvb</option>
+                        <option value="tv3">tv3</option>
+                        <option value="vg">vg</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="createDate">Create Date:</label>
+                    <input type="date" id="createDate" name="createDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="status">สถานะ:</label>
+                    <select id="status" name="status" required>
+                        <option value="ยืม">ยืม</option>
+                        <option value="คืน">คืน</option>
+                    </select>
+                </div>
+                <button type="submit" id="saveBtn">บันทึก</button>
+            </form>
+        </div>
+    </div>
 
-            tableBody.innerHTML = ''; // ล้างข้อมูลเดิมในตาราง
+   <script>
+const tableBody = document.getElementById("tableBody");
+const addBtn = document.getElementById("addBtn");
+const modal = document.getElementById("addModal");
+const closeBtn = document.querySelector(".close-btn");
+const addDataForm = document.getElementById("addDataForm");
 
-            data.forEach(rowData => {
-                const tr = document.createElement("tr");
-                tr.classList.add("expandable");
+// URL สำหรับ doGet / doPost (doPost ตัวเดียว แยก action ภายใน)
+const getUrl = "https://script.google.com/macros/s/AKfycbwz-z1ty6kkVseqn8KpjWCAi-xnv0qU_q0y0KCRcwcvpR1oqKgs0zi4vendHCu40FpdEA/exec";
+const postUrl = "https://script.google.com/macros/s/AKfycbxKlXvbGubg8dRlGOUvGxkofwH61gbp7RjWmlNzpTLQCU9mjx6N_kK9IAqIhEHSHothLw/exec";
 
-                tr.innerHTML = `
-                    <td>-</td>
-                    <td>${rowData['ID Number']}</td>
-                    <td>${rowData['ชื่อ']}</td>
-                    <td>${rowData['แผนก']}</td>
-                    <td>${rowData['Create Date']}</td>
-                    <td>${rowData['Status']}</td>
-                    <td>
-                        <button class="action-btn edit">แก้ไข</button>
-                        <button class="action-btn delete">ลบ</button>
-                    </td>
-                `;
+let editRow = null; // เก็บ row ที่กำลังแก้ไข
 
-                const detailsRow = document.createElement("tr");
-                detailsRow.className = "details-row";
-                detailsRow.innerHTML = `
-                    <td colspan="7" class="details-cell">
-                        <b>รายละเอียดของรายการ</b><br>
-                        ข้อมูลเพิ่มเติม: ${rowData['เพิ่มเติม'] || ''}
-                    </td>
-                `;
+// ฟังก์ชันดึงข้อมูลมาแสดง
+async function fetchDataAndRenderTable() {
+  try {
+    const response = await fetch(getUrl);
+    const data = await response.json();
+    tableBody.innerHTML = '';
 
-                tr.addEventListener("click", () => {
-                    detailsRow.style.display =
-                        detailsRow.style.display === "table-row" ? "none" : "table-row";
-                });
+    data.forEach(rowData => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>-</td>
+        <td>${rowData['ID Number']}</td>
+        <td>${rowData['ชื่อ']}</td>
+        <td>${rowData['แผนก']}</td>
+        <td>${rowData['Create Date']}</td>
+        <td>${rowData['Status']}</td>
+        <td>
+          <button class="action-btn edit">แก้ไข</button>
+          <button class="action-btn delete">ลบ</button>
+        </td>
+      `;
 
-                tableBody.appendChild(tr);
-                tableBody.appendChild(detailsRow);
-            });
-
-        } catch (error) {
-            console.error("Error fetching data:", error);
-            tableBody.innerHTML = `<tr><td colspan="7">เกิดข้อผิดพลาดในการโหลดข้อมูล</td></tr>`;
-        }
-    }
-    
-    // ฟังก์ชันสำหรับส่งข้อมูลจากฟอร์มไปยัง Google Sheet
-    async function submitData(event) {
-        event.preventDefault();
-
-        const formData = new FormData(addDataForm);
-        const data = {
-            'ID Number': formData.get('idNumber'),
-            'ชื่อ': formData.get('name'),
-            'แผนก': formData.get('department'),
-            'Create Date': formData.get('createDate'),
-            'Status': formData.get('status')
-        };
-
-        try {
-            const response = await fetch(addDataUrl, {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'text/plain;charset=utf-8'
-                }
-            });
-
-            const result = await response.json();
-            if (result.status === 'success') {
-                alert('บันทึกข้อมูลเรียบร้อยแล้ว!');
-                modal.style.display = "none";
-                fetchDataAndRenderTable(); // โหลดข้อมูลใหม่หลังจากบันทึก
-            } else {
-                alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล: ' + result.message);
-            }
-        } catch (error) {
-            console.error('Error submitting data:', error);
-            alert('ไม่สามารถเชื่อมต่อเพื่อบันทึกข้อมูลได้');
-        }
-    }
-
-    // Event listeners
-    addBtn.addEventListener("click", () => {
+      // ปุ่มแก้ไข
+      tr.querySelector(".edit").addEventListener("click", () => {
+        editRow = rowData._row;
+        document.getElementById("idNumber").value = rowData['ID Number'];
+        document.getElementById("name").value = rowData['ชื่อ'];
+        document.getElementById("department").value = rowData['แผนก'];
+        document.getElementById("createDate").value = rowData['Create Date'];
+        document.getElementById("status").value = rowData['Status'];
         modal.style.display = "block";
-    });
+      });
 
-    closeBtn.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
-
-    window.addEventListener("click", (event) => {
-        if (event.target == modal) {
-            modal.style.display = "none";
+      // ปุ่มลบ
+      tr.querySelector(".delete").addEventListener("click", async () => {
+        if (confirm("คุณแน่ใจว่าต้องการลบรายการนี้?")) {
+          try {
+            const response = await fetch(postUrl, {
+              method: 'POST',
+              body: JSON.stringify({ action: "delete", row: rowData._row }),
+              headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+            });
+            const result = await response.json();
+            if (result.status === "success") {
+              alert("ลบข้อมูลสำเร็จ");
+              fetchDataAndRenderTable();
+            } else {
+              alert("ลบข้อมูลไม่สำเร็จ: " + result.message);
+            }
+          } catch (err) {
+            alert("ไม่สามารถเชื่อมต่อเพื่อลบข้อมูลได้");
+          }
         }
+      });
+
+      tableBody.appendChild(tr);
     });
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    tableBody.innerHTML = `<tr><td colspan="7">เกิดข้อผิดพลาดในการโหลดข้อมูล</td></tr>`;
+  }
+}
 
-    addDataForm.addEventListener("submit", submitData);
+// ฟังก์ชันบันทึก (เพิ่ม/แก้ไข)
+async function submitData(event) {
+  event.preventDefault();
+  const formData = new FormData(addDataForm);
+  const data = {
+    'ID Number': formData.get('idNumber'),
+    'ชื่อ': formData.get('name'),
+    'แผนก': formData.get('department'),
+    'Create Date': formData.get('createDate'),
+    'Status': formData.get('status'),
+  };
 
-    // เรียกฟังก์ชันเมื่อหน้าเว็บโหลดเสร็จ
-    document.addEventListener("DOMContentLoaded", fetchDataAndRenderTable);
+  if (editRow) {
+    data.action = "update";
+    data.row = editRow;
+  } else {
+    data.action = "add";
+  }
 
+  try {
+    const response = await fetch(postUrl, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+    });
+    const result = await response.json();
+    if (result.status === 'success') {
+      alert(editRow ? "แก้ไขข้อมูลสำเร็จ" : "บันทึกข้อมูลเรียบร้อยแล้ว!");
+      modal.style.display = "none";
+      fetchDataAndRenderTable();
+      editRow = null;
+      addDataForm.reset();
+    } else {
+      alert('เกิดข้อผิดพลาด: ' + result.message);
+    }
+  } catch (error) {
+    alert(editRow ? 'ไม่สามารถเชื่อมต่อเพื่อแก้ไขข้อมูลได้' : 'ไม่สามารถเชื่อมต่อเพื่อบันทึกข้อมูลได้');
+  }
+}
+
+// Event listeners
+addBtn.addEventListener("click", () => {
+  editRow = null;
+  addDataForm.reset();
+  modal.style.display = "block";
+});
+closeBtn.addEventListener("click", () => { modal.style.display = "none"; });
+window.addEventListener("click", (event) => { if (event.target == modal) modal.style.display = "none"; });
+addDataForm.addEventListener("submit", submitData);
+
+document.addEventListener("DOMContentLoaded", fetchDataAndRenderTable);
 </script>
+
+
 
 </body>
 
