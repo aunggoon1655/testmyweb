@@ -153,6 +153,7 @@
         const formData = new FormData(addDataForm);
         const data = {
             'ID Number': formData.get('idNumber'),
+            'ชื่อ': formData.get('name'),
             'แผนก': formData.get('department'),
             'Create Date': formData.get('createDate'),
             'Status': formData.get('status')
