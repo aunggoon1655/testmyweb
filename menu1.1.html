@@ -24,7 +24,7 @@
             <thead>
                 <tr>
                     <th>Filter</th>
-                    <th>ID Number</th>
+                    <th>Emp ID</th>
                     <th>ชื่อ</th>
                     <th>แผนก</th>
                     <th>Create Date</th>
@@ -95,14 +95,17 @@ const postUrl = "https://script.google.com/macros/s/AKfycbxKlXvbGubg8dRlGOUvGxko
 
 let editRow = null; // เก็บ row ที่กำลังแก้ไข
 
-// ฟังก์ชันดึงข้อมูลมาแสดง
+    // ฟังก์ชันดึงข้อมูลมาแสดง
 async function fetchDataAndRenderTable() {
   try {
     const response = await fetch(getUrl);
     const data = await response.json();
     tableBody.innerHTML = '';
 
+    let openDetail = null; // เก็บว่าแถวไหนเปิดอยู่
+
     data.forEach(rowData => {
+      // 🔹 แถวหลัก
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td>-</td>
@@ -117,7 +120,45 @@ async function fetchDataAndRenderTable() {
         </td>
       `;
 
-      // ปุ่มแก้ไข
+      // 🔹 แถวรายละเอียด
+      const detailTr = document.createElement("tr");
+      detailTr.classList.add("details-row");
+      detailTr.innerHTML = `
+        <td colspan="7" class="details-cell">
+          <strong>รายละเอียดเพิ่มเติม</strong><br>
+          Category: ${rowData['category'] || '-'}<br>
+          Company: ${rowData['company'] || '-'}<br>
+          Assets ID: ${rowData['assets ID'] || '-'}<br>
+          S/N: ${rowData['S/N'] || '-'}<br>
+          Warranty: ${rowData['Warranty'] || '-'}<br>
+          Locations: ${rowData['Locations'] || '-'}
+        </td>
+      `;
+
+      // 🔹 คลิกทั้งแถวเพื่อเปิด/ปิดรายละเอียด
+      tr.addEventListener("click", (e) => {
+        // กัน event จากปุ่มแก้ไข/ลบ
+        if (e.target.classList.contains("edit") || e.target.classList.contains("delete")) return;
+
+        // ถ้าแถวนี้เปิดอยู่ → ปิด
+        if (detailTr.classList.contains("open")) {
+          detailTr.classList.remove("open");
+          tr.classList.remove("selected");
+          openDetail = null;
+        } else {
+          // ปิดแถวเก่า
+          if (openDetail) {
+            openDetail.detail.classList.remove("open");
+            openDetail.row.classList.remove("selected");
+          }
+          // เปิดแถวนี้
+          detailTr.classList.add("open");
+          tr.classList.add("selected");
+          openDetail = { row: tr, detail: detailTr };
+        }
+      });
+
+      // 🔹 ปุ่มแก้ไข
       tr.querySelector(".edit").addEventListener("click", () => {
         editRow = rowData._row;
         document.getElementById("idNumber").value = rowData['ID Number'];
@@ -128,7 +169,7 @@ async function fetchDataAndRenderTable() {
         modal.style.display = "block";
       });
 
-      // ปุ่มลบ
+      // 🔹 ปุ่มลบ
       tr.querySelector(".delete").addEventListener("click", async () => {
         if (confirm("คุณแน่ใจว่าต้องการลบรายการนี้?")) {
           try {
@@ -151,12 +192,14 @@ async function fetchDataAndRenderTable() {
       });
 
       tableBody.appendChild(tr);
+      tableBody.appendChild(detailTr);
     });
   } catch (error) {
     console.error("Error fetching data:", error);
     tableBody.innerHTML = `<tr><td colspan="7">เกิดข้อผิดพลาดในการโหลดข้อมูล</td></tr>`;
   }
 }
+
 
 // ฟังก์ชันบันทึก (เพิ่ม/แก้ไข)
 async function submitData(event) {
