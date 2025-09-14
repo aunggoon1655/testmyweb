@@ -190,3 +190,30 @@
             display: flex;
             align-items: center;
         }
+
+          tr.selected {
+    background-color: #e0e0e0; /* สีเทาเมื่อเลือก */
+    cursor: pointer;
+  }
+  .details-row {
+    display: none;
+    background: #f9f9f9;
+  }
+  .details-row.open {
+    display: table-row;
+  }
+  .details-cell {
+    padding: 10px;
+    text-align: left;
+  }
+
+/* Hover */
+#dataTable tbody tr:hover {
+  background-color: #f0f0f0; /* สีเทาอ่อน */
+  cursor: pointer;
+}
+
+/* Click selected */
+#dataTable tbody tr.selected {
+  background-color: #d0d0d0; /* สีเทาเข้ม */
+}
